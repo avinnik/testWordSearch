@@ -22,4 +22,19 @@ class WordSearchTest {
 		
 	}
 
+	@Test
+	public void testAllWordsFound() {
+
+		try {
+			String [] words= {"BONES", "KHAN", "KIRK", "SCOTTY", "SPOCK", "SULU", "UHURA"};
+			for(int i=0; i< words.length; i++)
+			{
+				assertEquals(words[i], wordSearch.searchWord(words[i]));
+			}
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 }
