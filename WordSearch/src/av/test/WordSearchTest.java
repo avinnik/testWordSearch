@@ -2,6 +2,7 @@ package av.test;
 
 import av.WordSearch;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 //import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WordSearchTest {
 	WordSearch wordSearch=null;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		if(wordSearch == null) wordSearch = new WordSearch();
@@ -18,7 +19,12 @@ class WordSearchTest {
 
 	@Test
 	void testWordSearchReturnsString() {
-		assertEquals("aa", wordSearch.searchWord("aa"));
+		try {
+			assertEquals("aa", wordSearch.searchWord("aa"));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -37,4 +43,37 @@ class WordSearchTest {
 		}
 	}
 
+	@Test
+	public void testNullInput() {
+		Throwable e = null;
+		try {
+			wordSearch.searchWord(null);
+		} catch (Exception e1) {
+			e=e1;
+		}
+		assertTrue(e instanceof IllegalArgumentException);
+	}
+
+	@Test
+	public void testWordTooLong() {
+		Throwable e = null;
+		try {
+			wordSearch.searchWord("qwertyuiopop[]asdfghjkl;");
+		} catch (Exception e1) {
+			e=e1;
+		}
+		assertTrue(e instanceof IllegalArgumentException);
+	}
+
+	@Test
+	public void testWordTooShort() {
+		Throwable e = null;
+		try {
+			wordSearch.searchWord("A");
+		} catch (Exception e1) {
+			e=e1;
+		}
+		assertTrue(e instanceof IllegalArgumentException);
+	}
+	
 }
