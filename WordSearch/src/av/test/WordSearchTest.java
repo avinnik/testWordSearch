@@ -16,31 +16,28 @@ public class WordSearchTest {
 		if(wordSearch == null) wordSearch = new WordSearch();
 	}
 
-//	@Test
-//	void testWordSearchReturnsString() {
-//		try {
-//			assertEquals("aa", wordSearch.searchWord("aa"));
-//		} catch (Exception e) {
-//
-//			e.printStackTrace();
-//		}
-//		
-//	}
 
-//	@Test
-//	public void testAllWordsFound() {
-//
-//		try {
-//			String [] words= {"BONES", "KHAN", "KIRK", "SCOTTY", "SPOCK", "SULU", "UHURA"};
-//			for(int i=0; i< words.length; i++)
-//			{
-//				assertEquals(words[i], wordSearch.searchWord(words[i]));
-//			}
-//
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testReverseSearch() {
+
+		try {
+			String [] words= {"KHAN", "KIRK", "SULU"};
+			String [] results= {
+					"KHAN (5,9),(5,8),(5,7),(5,6)",
+					"KIRK (4,7),(3,7),(2,7),(1,7)",
+					"SULU (3,3),(2,2),(1,1),(0,0)"
+			};
+			
+			for(int i=0; i< words.length; i++)
+			{
+				String res=wordSearch.searchWord(words[i]);
+				assertEquals(results[i], res);
+			}
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
 
 	@Test
 	public void testHorisontalSearch() {

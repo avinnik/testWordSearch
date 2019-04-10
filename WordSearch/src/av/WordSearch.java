@@ -119,6 +119,15 @@ public class WordSearch {
 		return String.valueOf(res);
 	}
 
+	/**
+	 * reverse string
+	 * @param inpString
+	 * @return
+	 */
+	private String reverseString(String inpString)
+	{
+		return new StringBuffer(inpString).reverse().toString();
+	}
 
 	public String searchWord(String word) throws Exception
 	{
@@ -143,11 +152,17 @@ public class WordSearch {
 
 	}
 
+	/**
+	 * 
+	 * @param word
+	 * @param reverse -- flag if it is reverse search
+	 * @return
+	 */
 	private String searchWord(String word, boolean reverse)
 	{
 
 		//do not forget reverse
-		String wordToSearch=word;
+		String wordToSearch=reverse?  reverseString(word) :word;
 
 		for(int i=0; i< size; i++)
 		{
@@ -228,11 +243,16 @@ public class WordSearch {
 			}
 		}
 
-		String str= word+ " " + res[0];
+		String str= word+ " " + (reversed? res[res.length-1] :res[0]);
 
-
-		for(int i=1; i< res.length; i++) str += ","+ res[i];
-
+		if(reversed)
+		{
+			for(int i=res.length-2; i>= 0; i--) str += ","+ res[i];		
+		} 
+		else 
+		{
+			for(int i=1; i< res.length; i++) str += ","+ res[i];
+		}
 		return str;
 
 	}
