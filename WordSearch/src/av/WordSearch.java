@@ -17,14 +17,14 @@ public class WordSearch {
 			"O,J,Y,E,U,L,N,C,C,L,Y,B,Z,U,H," + 
 			"W,Z,M,I,S,U,K,U,R,B,I,D,U,X,S," + 
 			"K,Y,L,B,Q,Q,P,M,D,F,C,K,E,A,B";
-	
+
 	final int size=15;
 	String [] stringArray=null;
 	String [] rows= new String[size];
 	String [] columns= new String[size];
 	String [] diagonalsRight=new String[size];
 	String [] diagonalsLeft=new String[size];
-	
+
 	public enum ResultType {
 		ROW,
 		COLUMN,
@@ -42,24 +42,37 @@ public class WordSearch {
 		for( int i=0; i< size; i++)
 		{
 			rows[i]=getRow(i);
+			columns[i]=getColumn(i);
 		}
 
 	}
 
 	/**
 	 * get row by index
-	 * @param num
+	 * @param ind
 	 * @return
 	 */
-	String getRow(int num)
+	String getRow(int ind)
 	{
 		char [] res=new char[size];
-		int start=size*num;
+		int start=size*ind;
 
 		for(int i=0; i < size; i++)
-		{
 			res[i]=stringArray[start+i].charAt(0);
-		}
+
+		return String.valueOf(res);
+	}
+
+	/**
+	 * get column by index
+	 * @param ind
+	 * @return
+	 */
+	String getColumn(int ind)
+	{
+		char [] res=new char[size];
+
+		for(int i=0, j=ind; i < size; i++,j+=size) 	res[i]=stringArray[j].charAt(0);
 
 		return String.valueOf(res);
 	}
@@ -71,7 +84,7 @@ public class WordSearch {
 			throw new IllegalArgumentException ("Word must be at least 2 character long");
 
 		}
-		
+
 		try {
 
 			String tmpResult=searchWord(word, false);
@@ -86,13 +99,13 @@ public class WordSearch {
 		}
 
 	}
-	
+
 	private String searchWord(String word, boolean reverse)
 	{
 
 		//do not forget reverse
 		String wordToSearch=word;
-		
+
 		for(int i=0; i< size; i++)
 		{
 			String tmpResult;
@@ -101,6 +114,11 @@ public class WordSearch {
 			String whereToSearch=getRow(i);
 			index=whereToSearch.indexOf(wordToSearch);
 			tmpResult=formatResult(word, i, index, ResultType.ROW, reverse);
+			if(tmpResult != null) return tmpResult;
+			
+			whereToSearch=getColumn(i);
+			index=whereToSearch.indexOf(wordToSearch);
+			tmpResult=formatResult(word, i, index, ResultType.COLUMN, reverse);
 			if(tmpResult != null) return tmpResult;
 		}
 
@@ -131,6 +149,15 @@ public class WordSearch {
 				res[i]=String.format("(%d,%d)", startingIndex+i, itemIndex);
 				break;
 			}
+			
+			case COLUMN:
+			{
+				res[i]=String.format("(%d,%d)", itemIndex, startingIndex+i);
+				break;
+			}
+			
+			default:
+				break;
 
 			}
 		}
@@ -138,7 +165,7 @@ public class WordSearch {
 		String str= word+ " " + res[0];
 
 
-			for(int i=1; i< res.length; i++) str += ","+ res[i];
+		for(int i=1; i< res.length; i++) str += ","+ res[i];
 
 		return str;
 

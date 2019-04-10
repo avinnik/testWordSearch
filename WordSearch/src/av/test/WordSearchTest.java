@@ -62,6 +62,25 @@ class WordSearchTest {
 		}
 	}
 
+	@Test
+	public void testVerticalSearch() {
+
+		try {
+			String [] words= {"BONES"};
+			String [] results= {
+					"BONES (0,6),(0,7),(0,8),(0,9),(0,10)",
+			};
+			
+			for(int i=0; i< words.length; i++)
+			{
+				assertEquals(results[i], wordSearch.searchWord(words[i]));
+			}
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	
 	@Test
 	public void testNullInput() {
