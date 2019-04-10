@@ -17,25 +17,44 @@ class WordSearchTest {
 		if(wordSearch == null) wordSearch = new WordSearch();
 	}
 
+//	@Test
+//	void testWordSearchReturnsString() {
+//		try {
+//			assertEquals("aa", wordSearch.searchWord("aa"));
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//		}
+//		
+//	}
+
+//	@Test
+//	public void testAllWordsFound() {
+//
+//		try {
+//			String [] words= {"BONES", "KHAN", "KIRK", "SCOTTY", "SPOCK", "SULU", "UHURA"};
+//			for(int i=0; i< words.length; i++)
+//			{
+//				assertEquals(words[i], wordSearch.searchWord(words[i]));
+//			}
+//
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
+//	}
+
 	@Test
-	void testWordSearchReturnsString() {
-		try {
-			assertEquals("aa", wordSearch.searchWord("aa"));
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		
-	}
-
-	@Test
-	public void testAllWordsFound() {
+	public void testHorisontalSearch() {
 
 		try {
-			String [] words= {"BONES", "KHAN", "KIRK", "SCOTTY", "SPOCK", "SULU", "UHURA"};
+			String [] words= {"SCOTTY"};
+			String [] results= {
+					"SCOTTY (0,5),(1,5),(2,5),(3,5),(4,5),(5,5)",
+			};
+			
 			for(int i=0; i< words.length; i++)
 			{
-				assertEquals(words[i], wordSearch.searchWord(words[i]));
+				assertEquals(results[i], wordSearch.searchWord(words[i]));
 			}
 
 		} catch (Exception e1) {
@@ -43,6 +62,7 @@ class WordSearchTest {
 		}
 	}
 
+	
 	@Test
 	public void testNullInput() {
 		Throwable e = null;
