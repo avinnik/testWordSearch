@@ -81,6 +81,26 @@ class WordSearchTest {
 		}
 	}
 
+	@Test
+	public void testLeftToRightDiagonalSearch() {
+
+		try {
+			String [] words= {"SPOCK"};
+			String [] results= {
+					"SPOCK (2,1),(3,2),(4,3),(5,4),(6,5)",
+			};
+			
+			for(int i=0; i< words.length; i++)
+			{
+				String res=wordSearch.searchWord(words[i]);
+				assertEquals(results[i], res);
+			}
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	
 	@Test
 	public void testNullInput() {
