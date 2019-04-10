@@ -44,6 +44,7 @@ public class WordSearch {
 			rows[i]=getRow(i);
 			columns[i]=getColumn(i);
 			diagonalsRight[i]=getDiagonalLeftToRight(i);
+			diagonalsLeft[i]=getDiagonalRightToLeft(i);
 		}
 
 	}
@@ -63,6 +64,21 @@ public class WordSearch {
 
 		return String.valueOf(res);
 	}
+	
+	/**
+	 * get column by index
+	 * @param ind
+	 * @return
+	 */
+	String getColumn(int ind)
+	{
+		char [] res=new char[size];
+
+		for(int i=0, j=ind; i < size; i++,j+=size) 	res[i]=stringArray[j].charAt(0);
+
+		return String.valueOf(res);
+	}
+
 
 	/**
 	 * get diagonal  starting from specified column
@@ -84,18 +100,25 @@ public class WordSearch {
 	}
 
 	/**
-	 * get column by index
-	 * @param ind
+	 * get diagonal  starting from specified column
+	 * @param x -- columnindex
 	 * @return
 	 */
-	String getColumn(int ind)
+	String getDiagonalRightToLeft(int x)
 	{
-		char [] res=new char[size];
+		int diagonalSize=x+1;
 
-		for(int i=0, j=ind; i < size; i++,j+=size) 	res[i]=stringArray[j].charAt(0);
+		char [] res=new char[diagonalSize];
+
+		for(int i=0, j=x+i; i < diagonalSize; i++, j += size-1)
+		{
+
+			res[i]=stringArray[j].charAt(0);
+		}
 
 		return String.valueOf(res);
 	}
+
 
 	public String searchWord(String word) throws Exception
 	{
@@ -146,6 +169,11 @@ public class WordSearch {
 			tmpResult=formatResult(word, i, index, ResultType.DIAGONAL_RIGHT, reverse);
 			if(tmpResult != null) return tmpResult;
 
+			whereToSearch=diagonalsLeft[i];	
+			index=whereToSearch.indexOf(wordToSearch);
+			tmpResult=formatResult(word, i, index, ResultType.DIAGONAL_LEFT, reverse);
+			if(tmpResult != null) return tmpResult;
+
 		}
 
 		return null;
@@ -185,6 +213,12 @@ public class WordSearch {
 			case DIAGONAL_RIGHT:
 			{
 				res[i]=String.format("(%d,%d)", itemIndex+startingIndex+i, startingIndex+i);
+				break;
+			}
+
+			case DIAGONAL_LEFT:
+			{
+				res[i]=String.format("(%d,%d)", itemIndex+startingIndex-i, startingIndex+i);
 				break;
 			}
 

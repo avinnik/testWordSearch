@@ -2,16 +2,15 @@ package av.test;
 
 import av.WordSearch;
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
-//import org.junit.Test;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WordSearchTest {
+public class WordSearchTest {
 	WordSearch wordSearch=null;
 
-	@BeforeEach
+	@Before
 	public void setUp()
 	{
 		if(wordSearch == null) wordSearch = new WordSearch();
@@ -88,6 +87,26 @@ class WordSearchTest {
 			String [] words= {"SPOCK"};
 			String [] results= {
 					"SPOCK (2,1),(3,2),(4,3),(5,4),(6,5)",
+			};
+			
+			for(int i=0; i< words.length; i++)
+			{
+				String res=wordSearch.searchWord(words[i]);
+				assertEquals(results[i], res);
+			}
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testRightToLeftDiagonalSearch() {
+
+		try {
+			String [] words= {"UHURA"};
+			String [] results= {
+					"UHURA (4,0),(3,1),(2,2),(1,3),(0,4)",
 			};
 			
 			for(int i=0; i< words.length; i++)
