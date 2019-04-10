@@ -1,14 +1,25 @@
 package av.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import av.WordSearch;
+import org.junit.Before;
+//import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class WordSearchTest {
+	WordSearch wordSearch=null;
+
+	@Before
+	public void setUp()
+	{
+		if(wordSearch == null) wordSearch = new WordSearch();
+	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testWordSearchReturnsString() {
+		assertEquals("aa", wordSearch.searchWord("aa"));
+		
 	}
 
 }
